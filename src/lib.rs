@@ -18,8 +18,8 @@ pub use painter::Painter;
 
 pub use egui_winit;
 
-use egui_winit::winit::event_loop::EventLoopWindowTarget;
 pub use egui_winit::EventResponse;
+use winit::raw_window_handle::HasDisplayHandle;
 
 // ----------------------------------------------------------------------------
 
@@ -33,11 +33,11 @@ pub struct EguiGlium {
 }
 
 impl EguiGlium {
-    pub fn new<E>(
+    pub fn new(
         viewport_id: egui::ViewportId,
         display: &glium::Display<WindowSurface>,
         window: &winit::window::Window,
-        event_loop: &EventLoopWindowTarget<E>,
+        display_target: &dyn HasDisplayHandle,
     ) -> Self {
         let painter = crate::Painter::new(display);
 
@@ -45,7 +45,7 @@ impl EguiGlium {
         let egui_winit = egui_winit::State::new(
             Default::default(),
             viewport_id,
-            event_loop,
+            display_target,
             Some(pixels_per_point),
             Some(painter.max_texture_side()),
         );

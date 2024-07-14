@@ -29,20 +29,32 @@ links = ["egui-winit/links"]
 
 
 [dependencies]
-egui = { version = "0.26.2", default-features = false, features = [
-  "bytemuck",
-  "default_fonts"
-] }
-egui-winit = { version = "0.26.2", default-features = false }
-
 ahash = { version = "0.8.1", default-features = false, features = [
   "no-rng", # we don't need DOS-protection, so we let users opt-in to it instead
   "std",
 ] }
 bytemuck = "1.7"
-glium = "0.34"
-winit = "0.29"
-log = "0.4.21"
+winit = "0.30.3"
+log = "0.4"
+
+# until https://github.com/glium/glium/pull/2113 merged
+[dependencies.glium]
+git = "https://github.com/est31/glium.git"
+branch = "glutin-0.32"
+
+# until https://github.com/emilk/egui/pull/4466 merged
+[dependencies.egui]
+git = "https://github.com/AndriBaal/egui.git"
+branch = "winit-0.30"
+default-features = false
+features = ["bytemuck", "default_fonts"]
+
+# until https://github.com/emilk/egui/pull/4466 merged
+[dependencies.egui-winit]
+git = "https://github.com/AndriBaal/egui.git"
+branch = "winit-0.30"
+default-features = false
+
 
 #! ### Optional dependencies
 ## Enable this when generating docs.
@@ -50,5 +62,10 @@ document-features = { version = "0.2", optional = true }
 
 
 [dev-dependencies]
-egui_demo_lib = { version = "0.26.2", default-features = false }
-image = { version = "0.24", default-features = false, features = ["png"] }
+image = { version = "0.25.1", default-features = false, features = ["png"] }
+
+# until https://github.com/emilk/egui/pull/4466 merged
+[dev-dependencies.egui_demo_lib]
+git = "https://github.com/AndriBaal/egui.git"
+branch = "winit-0.30"
+default-features = false

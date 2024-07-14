@@ -6,11 +6,11 @@ use egui::ViewportId;
 use glium::{backend::glutin::SimpleWindowBuilder, glutin::surface::WindowSurface};
 use winit::{
     event,
-    event_loop::{EventLoop, EventLoopBuilder},
+    event_loop::EventLoop,
 };
 
 fn main() {
-    let event_loop = EventLoopBuilder::with_user_event().build().unwrap();
+    let event_loop = EventLoop::builder().build().unwrap();
     let (window, display) = create_display(&event_loop);
 
     let mut egui_glium =
@@ -89,7 +89,7 @@ fn create_display(
     event_loop: &EventLoop<()>,
 ) -> (winit::window::Window, glium::Display<WindowSurface>) {
     SimpleWindowBuilder::new()
-        .set_window_builder(winit::window::WindowBuilder::new().with_resizable(true))
+        .set_window_builder(winit::window::WindowAttributes::default().with_resizable(true))
         .with_inner_size(800, 600)
         .with_title("egui_glium example")
         .build(event_loop)
